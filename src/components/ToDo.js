@@ -1,9 +1,20 @@
 import React from 'react';
+import { toggleToDo } from '../actions';
+import { connect } from 'react-redux';
 
-const ToDo = ({ todo }) => {
+const ToDo = ({ id, todo, completed, toggleToDo }) => {
   return (
-    <li>{todo}</li>
+    <li 
+      className={completed ? 'completed' : 'not-completed'} 
+      onClick={() => toggleToDo(id)}
+    >
+    {todo}
+  </li>
   )
 }
 
-export default ToDo;
+const mapDispatchToProps = dispatch => ({
+  toggleToDo: id => dispatch( toggleToDo(id) )
+})
+
+export default connect(null, mapDispatchToProps)(ToDo);
